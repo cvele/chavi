@@ -27,7 +27,7 @@ services:
       - ./db/users.sql:/docker-entrypoint-initdb.d/1.sql
     environment:
       - MYSQL_ROOT_PASSWORD=${DB_PASSWORD:-root}
-      - MYSQL_DATABASE={DB_NAME:-chavi}
+      - MYSQL_DATABASE=${DB_NAME:-chavi}
     ports:
       - ${DB_PORT:-3306}:3306
 
