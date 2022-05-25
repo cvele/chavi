@@ -1,0 +1,24 @@
+parameters:
+  level: 7
+  paths:
+    - src
+  excludePaths:
+    - public/*
+    - tests/*
+    - vendor/*
+    - var/cache
+    - .dd_trace.php
+  inferPrivatePropertyTypeFromConstructor: true
+  checkMissingIterableValueType: false
+  excludes_analyse:
+  ignoreErrors:
+    - 
+      message: "#^Property App\\\\Entity\\\\User\\:\\:\\$id is never written, only read\\.$#"
+      count: 1
+      path: src/Entity/User.php
+
+    - 
+      message: "#^Parameter \\#1 \\$userRepository of class App\\\\Controller\\\\Controller constructor expects App\\\\Repository\\\\UserRepository\\, Doctrine\\\\ORM\\\\EntityRepository\\<App\\\\Entity\\\\User\\> given\\.$#"
+      count: 1
+      path: src/DependencyContainer.php
+

@@ -1,0 +1,35 @@
+services:
+  app:
+    networks:
+      - chavi
+    build: 
+      dockerfile: ./Dockerfile
+      context: .
+    restart: on-failure
+    volumes:
+      - .:/src
+    ports:
+      - ${APP_PORT:-8000}:8000
+    environment:
+      - DB_USERNAME=${DB_USERNAME:-root}
+      - DB_PASSWORD=${DB_PASSWORD:-root}
+      - DB_HOSTNAME=${DB_HOSTNAME:-db}
+      - DB_PORT=${DB_PORT:-3306}
+      - DB_DRIVER=${DB_DRIVER:-pdo_mysql}
+      - DB_NAME=${DB_NAME:-chavi}
+      - ENV=${ENV:-dev}
+  db:
+    networks:
+      - chavi
+    restart: on-failure
+    image: mysql:8
+    volumes:
+      - ./db/users.sql:/docker-entrypoint-initdb.d/1.sql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD:-root}
+      - MYSQL_DATABASE={DB_NAME:-chavi}
+    ports:
+      - ${DB_PORT:-3306}:3306
+
+networks:
+  chavi:
